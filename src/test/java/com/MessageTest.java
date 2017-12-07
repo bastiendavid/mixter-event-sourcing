@@ -3,9 +3,6 @@ package com;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MessageTest {
 
     @Test
@@ -17,8 +14,8 @@ public class MessageTest {
         message.quack();
 
         // Then
-        Assert.assertEquals(message.eventList.size(), 1);
-        Assert.assertEquals(message.eventList.get(0).getClass(), MessageQuackedEvent.class);
+        Assert.assertEquals(message.history.size(), 1);
+        Assert.assertEquals(message.history.get(0).getClass(), MessageQuackedEvent.class);
     }
 
     @Test
@@ -30,23 +27,23 @@ public class MessageTest {
         message.delete();
 
         // Then
-        Assert.assertEquals(message.eventList.size(), 1);
-        Assert.assertEquals(message.eventList.get(0).getClass(), MessageDeletedEvent.class);
+        Assert.assertEquals(message.history.size(), 1);
+        Assert.assertEquals(message.history.get(0).getClass(), MessageDeletedEvent.class);
     }
 
     @Test
     public void when_deleted_message_then_message_nothing_is_raised() {
         // Given
-        List<Event> eventList = new ArrayList<>();
-        eventList.add(new MessageDeletedEvent());
-        Message message = new Message(eventList);
+        History history = new History();
+        history.add(new MessageDeletedEvent());
+        Message message = new Message(history);
 
         // When
         message.delete();
 
         // Then
-        Assert.assertEquals(message.eventList.size(), 1);
-        Assert.assertEquals(message.eventList.get(0).getClass(), MessageDeletedEvent.class);
+        Assert.assertEquals(message.history.size(), 1);
+        Assert.assertEquals(message.history.get(0).getClass(), MessageDeletedEvent.class);
     }
 
 }

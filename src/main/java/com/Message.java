@@ -6,27 +6,25 @@ import java.util.stream.Stream;
 
 public class Message {
 
-    List<Event> eventList = new ArrayList<>();
+    History history = new History();
 
     public Message() {
 
     }
 
-    public Message(List<Event> eventList) {
-        this.eventList.addAll(eventList);
+    public Message(History history) {
+        this.history = history;
     }
 
     public void quack() {
-        eventList.add(new MessageQuackedEvent());
+        history.add(new MessageQuackedEvent());
     }
 
     public void delete() {
-
-        Stream<Event> deletedEvents = eventList.stream().filter(event -> event instanceof MessageDeletedEvent);
-        if (deletedEvents.count() > 0) {
+        if (history.has(MessageDeletedEvent.class)) {
             return;
         }
 
-        eventList.add(new MessageDeletedEvent());
+        history.add(new MessageDeletedEvent());
     }
 }
