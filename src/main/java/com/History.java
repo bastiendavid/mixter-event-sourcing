@@ -1,5 +1,7 @@
 package com;
 
+import com.event.Event;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -12,7 +14,7 @@ public class History {
 
     }
 
-    public void add(Event event) {
+    public void archive(Event event) {
         eventList.add(event);
     }
 

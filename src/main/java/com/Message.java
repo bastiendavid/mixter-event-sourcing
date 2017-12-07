@@ -1,8 +1,7 @@
 package com;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Stream;
+import com.event.DeleteMessage;
+import com.event.QuackMessage;
 
 public class Message {
 
@@ -17,14 +16,14 @@ public class Message {
     }
 
     public void quack() {
-        history.add(new MessageQuackedEvent());
+        history.archive(new QuackMessage());
     }
 
     public void delete() {
-        if (history.has(MessageDeletedEvent.class)) {
+        if (history.has(DeleteMessage.class)) {
             return;
         }
 
-        history.add(new MessageDeletedEvent());
+        history.archive(new DeleteMessage());
     }
 }
