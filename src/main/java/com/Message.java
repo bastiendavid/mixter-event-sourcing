@@ -15,15 +15,15 @@ public class Message {
         this.history = history;
     }
 
-    public void quack() {
-        history.archive(new QuackMessage());
+    public void quack(String author, String content) {
+        history.archive(new QuackMessage(author, content));
     }
 
-    public void delete() {
+    public void delete(String author) {
         if (history.has(DeleteMessage.class)) {
             return;
         }
 
-        history.archive(new DeleteMessage());
+        history.archive(new DeleteMessage(author));
     }
 }
