@@ -1,7 +1,7 @@
 package com;
 
-import com.event.DeletedMessage;
-import com.event.QuackedMessage;
+import com.event.MessageDeleted;
+import com.event.MessageQuaked;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -20,7 +20,7 @@ public class MessageTest {
 
         // Then
         Assert.assertEquals(message.history.size(), 1);
-        Assert.assertEquals(message.history.get(0).getClass(), QuackedMessage.class);
+        Assert.assertEquals(message.history.get(0).getClass(), MessageQuaked.class);
     }
 
     @Test
@@ -33,14 +33,14 @@ public class MessageTest {
 
         // Then
         Assert.assertEquals(message.history.size(), 2);
-        Assert.assertEquals(message.history.get(0).getClass(), QuackedMessage.class);
-        Assert.assertEquals(message.history.get(1).getClass(), DeletedMessage.class);
+        Assert.assertEquals(message.history.get(0).getClass(), MessageQuaked.class);
+        Assert.assertEquals(message.history.get(1).getClass(), MessageDeleted.class);
     }
 
     @Test
     public void when_deleted_message_then_message_nothing_is_raised() {
         // Given
-        History history = new History(Arrays.asList(new QuackedMessage(author, content), new DeletedMessage(author)));
+        History history = new History(Arrays.asList(new MessageQuaked(author, content), new MessageDeleted(author)));
         Message message = new Message(history);
 
         // When
@@ -48,7 +48,7 @@ public class MessageTest {
 
         // Then
         Assert.assertEquals(message.history.size(), 2);
-        Assert.assertEquals(message.history.get(0).getClass(), QuackedMessage.class);
-        Assert.assertEquals(message.history.get(1).getClass(), DeletedMessage.class);
+        Assert.assertEquals(message.history.get(0).getClass(), MessageQuaked.class);
+        Assert.assertEquals(message.history.get(1).getClass(), MessageDeleted.class);
     }
 }

@@ -1,7 +1,7 @@
 package com;
 
-import com.event.DeletedMessage;
-import com.event.QuackedMessage;
+import com.event.MessageDeleted;
+import com.event.MessageQuaked;
 
 public class Message {
 
@@ -17,15 +17,15 @@ public class Message {
 
     public static Message quack(String author, String content) {
         Message message = new Message();
-        message.history.archive(new QuackedMessage(author, content));
+        message.history.archive(new MessageQuaked(author, content));
         return message;
     }
 
     public void delete(String author) {
-        if (history.has(DeletedMessage.class)) {
+        if (history.has(MessageDeleted.class)) {
             return;
         }
 
-        history.archive(new DeletedMessage(author));
+        history.archive(new MessageDeleted(author));
     }
 }
