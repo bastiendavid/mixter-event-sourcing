@@ -21,11 +21,10 @@ public class Message {
         return message;
     }
 
-    public void delete(String author) {
-        if (history.has(MessageDeleted.class)) {
-            return;
+    public void delete(String byUser) {
+        MessageState state = history.computeMessage();
+        if (!state.isDeleted && state.author.equals(byUser)) {
+            history.archive(new MessageDeleted());
         }
-
-        history.archive(new MessageDeleted(author));
     }
 }
