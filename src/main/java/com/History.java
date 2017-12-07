@@ -14,6 +14,10 @@ public class History {
 
     }
 
+    public History(List<Event> events) {
+        eventList.addAll(events);
+    }
+
     public void archive(Event event) {
         eventList.add(event);
     }

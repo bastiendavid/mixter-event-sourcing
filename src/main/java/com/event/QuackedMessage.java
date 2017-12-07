@@ -1,10 +1,10 @@
 package com.event;
 
-public class QuackMessage extends Event {
+public class QuackedMessage extends Event {
 
     public String content;
 
-    public QuackMessage(String author, String content) {
+    public QuackedMessage(String author, String content) {
         super(author);
         this.content = content;
     }
