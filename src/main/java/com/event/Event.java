@@ -1,4 +1,7 @@
 package com.event;
 
-public class Event {
+import com.MessageState;
+
+public interface Event {
+    void accept(MessageState messageState);
 }

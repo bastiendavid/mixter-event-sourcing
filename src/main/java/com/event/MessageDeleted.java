@@ -1,5 +1,11 @@
 package com.event;
 
-public class MessageDeleted extends Event {
+import com.MessageState;
 
+public class MessageDeleted implements Event {
+
+    @Override
+    public void accept(MessageState messageState) {
+        messageState.visit(this);
+    }
 }

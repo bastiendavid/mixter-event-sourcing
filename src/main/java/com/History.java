@@ -1,12 +1,9 @@
 package com;
 
 import com.event.Event;
-import com.event.MessageDeleted;
-import com.event.MessageQuaked;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class History {
 
@@ -24,11 +21,6 @@ public class History {
         eventList.add(event);
     }
 
-    public boolean has(Class<? extends Event> eventClass) {
-        Stream<Event> events = eventList.stream().filter(event -> event.getClass() == eventClass);
-        return events.count() > 0;
-    }
-
     public int size() {
         return eventList.size();
     }
@@ -38,12 +30,9 @@ public class History {
     }
 
     public MessageState computeMessage() {
-        // Ugly implementation, to have the test green
         MessageState messageState = new MessageState();
-        messageState.isDeleted = has(MessageDeleted.class);
-        if (!eventList.isEmpty()) {
-            MessageQuaked messageQuaked = (MessageQuaked) eventList.get(0);
-            messageState.author = messageQuaked.author;
+        for (Event event : eventList) {
+            event.accept(messageState);
         }
         return messageState;
     }
